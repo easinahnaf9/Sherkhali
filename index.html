@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শেরখালী যুবশক্তি </title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #ecf0f3;
+            --shadow-dark: #d1d9e6;
+            --shadow-light: #ffffff;
+            --accent-color: #31344b;
+            --text-gray: #777;
+            --blood-red: #e74c3c;
+        }
+
+        .dark-mode {
+            --bg-color: #2d3436;
+            --shadow-dark: #1e2425;
+            --shadow-light: #3c4446;
+            --accent-color: #ecf0f3;
+            --text-gray: #bdc3c7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--accent-color);
+            transition: 0.3s;
+            display: flex; justify-content: center; min-height: 100vh;
+        }
+
+        .phone-container { width: 100%; max-width: 450px; position: relative; padding-bottom: 90px; overflow-x: hidden; }
+
+        /* Top Bar */
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 30px 20px 10px; }
+        .top-bar h1 { font-size: 24px; font-weight: 700; flex-grow: 1; text-align: center; margin-left: 40px;}
+        .menu-dot {
+            width: 45px; height: 45px; border-radius: 50%; background: var(--bg-color);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+            cursor: pointer; font-size: 20px;
+        }
+
+        /* Side Nav */
+        .side-nav {
+            position: fixed; top: 0; right: -280px; width: 280px; height: 100%;
+            background: var(--bg-color); z-index: 3000; padding: 50px 20px;
+            box-shadow: -10px 0 30px var(--shadow-dark); transition: 0.4s ease;
+        }
+        .side-nav.active { right: 0; }
+        .side-nav .menu-item {
+            padding: 15px; margin-bottom: 20px; border-radius: 12px;
+            display: flex; align-items: center; gap: 15px;
+            box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+            cursor: pointer; font-weight: 600;
+        }
+
+        /* Member List Neumorphic Items */
+        .list-container { padding: 15px; }
+        .list-item {
+            background: var(--bg-color); padding: 15px; border-radius: 20px;
+            margin-bottom: 20px; display: flex; align-items: center;
+            box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+            cursor: pointer; transition: 0.2s;
+        }
+        .list-item:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
+        .list-item img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; box-shadow: 3px 3px 6px var(--shadow-dark); }
+        .list-item .info { flex-grow: 1; margin-left: 15px; }
+        .list-item .name { font-size: 17px; font-weight: 600; }
+
+        /* Overlays (Profile & Dev) */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color); z-index: 4000; display: none;
+            align-items: center; justify-content: center;
+        }
+
+        /* বড় এবং লম্বা কার্ড ডিজাইন (এখানে পরিবর্তন করা হয়েছে) */
+        .neumorphic-card {
+            width: 92%; max-width: 360px; /* চওড়া বাড়ানো হয়েছে */
+            background: var(--bg-color);
+            padding: 50px 25px 40px; /* লম্বা করার জন্য প্যাডিং বাড়ানো হয়েছে */
+            border-radius: 50px;
+            box-shadow: 15px 15px 35px var(--shadow-dark), -15px -15px 35px var(--shadow-light);
+            text-align: center;
+        }
+
+        /* বড় প্রোফাইল ইমেজ */
+        .profile-img-box {
+            width: 150px; height: 150px; /* সাইজ বাড়ানো হয়েছে */
+            margin: 0 auto 25px; border-radius: 50%; padding: 10px;
+            box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .profile-img-box img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; }
+
+        .user-name { font-size: 26px; color: var(--accent-color); font-weight: 700; margin-bottom: 8px; }
+        .user-father { font-size: 16px; color: var(--text-gray); margin-bottom: 35px; }
+
+        /* বড় সোশ্যাল বাটন */
+        .social-row { display: flex; justify-content: center; gap: 18px; margin-bottom: 35px; }
+        .social-btn {
+            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            background: var(--bg-color); color: var(--accent-color);
+            box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+            font-size: 20px; text-decoration: none;
+        }
+
+        /* বড় অ্যাকশন বাটন */
+        .action-btns { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        .btn {
+            width: 135px; padding: 14px; border-radius: 15px; border: none;
+            background: var(--bg-color); color: var(--accent-color); font-weight: 600;
+            box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+            text-decoration: none; font-size: 15px; text-align: center;
+        }
+        .btn:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
+
+        /* স্ট্যাটাস লাইন */
+        .stats-row { 
+            display: flex; justify-content: space-around; 
+            border-top: 1px solid rgba(0,0,0,0.05); padding-top: 25px; 
+            margin-top: 10px;
+        }
+        .stat-item i { display: block; font-size: 18px; color: var(--text-gray); margin-bottom: 8px; }
+        .stat-item span { display: block; font-weight: bold; font-size: 15px; }
+
+        /* Search Box */
+        .search-box {
+            width: 90%; margin: 10px auto 20px; display: block;
+            padding: 16px 20px; border: none; border-radius: 30px;
+            background: var(--bg-color); color: var(--accent-color);
+            box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+            outline: none; font-family: 'Hind Siliguri'; font-size: 16px;
+        }
+
+        /* Blood Summary Card */
+        .blood-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
+        .blood-card {
+            background: var(--bg-color); padding: 22px; border-radius: 22px;
+            text-align: center; cursor: pointer;
+            box-shadow: 7px 7px 14px var(--shadow-dark), -7px -7px 14px var(--shadow-light);
+            transition: 0.2s;
+        }
+        .blood-card h3 { color: var(--blood-red); font-size: 24px; margin-bottom: 5px; }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; max-width: 450px;
+            background: var(--bg-color); display: flex; justify-content: space-around;
+            padding: 18px 0; border-radius: 30px 30px 0 0;
+            box-shadow: 0 -10px 20px var(--shadow-dark); z-index: 1000;
+        }
+        .nav-item { color: #888; font-size: 22px; cursor: pointer; }
+        .nav-item.active { color: var(--accent-color); }
+        .page-section { display: none; }
+        .active-section { display: block; }
+/* প্রোফাইলের ভেতরের ব্লাড আইকন লাল করার জন্য */
+.stat-item i.fa-tint {
+    color: #e74c3c !important;
+}
+    </style>
+</head>
+<body>
+
+<div class="phone-container">
+    <div class="top-bar">
+        <h1>শেরখালী যুব শক্তি </h1>
+        <div class="menu-dot" onclick="toggleMenu()"><i class="fas fa-ellipsis-v"></i></div>
+    </div>
+
+    <!-- Side Navigation -->
+    <div id="sideNav" class="side-nav">
+        <div class="menu-item" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> ডার্ক মোড</div>
+        <div class="menu-item" onclick="showDeveloper()"><i class="fas fa-code"></i> ডেভলপার</div>
+        <div class="menu-item" onclick="toggleMenu()"><i class="fas fa-times"></i> বন্ধ করুন</div>
+    </div>
+
+    <!-- Main Sections -->
+    <div id="home" class="page-section active-section">
+        <div class="list-container" id="mainList"></div>
+    </div>
+
+    <div id="search" class="page-section">
+        <input type="text" id="searchInput" class="search-box" placeholder="নাম লিখে খুঁজুন..." onkeyup="runSearch()">
+        <div class="list-container" id="searchList"></div>
+    </div>
+
+    <div id="blood" class="page-section">
+        <div class="blood-grid" id="bloodSummary"></div>
+        <div style="margin: 20px 15px 10px; font-weight: bold; color: var(--blood-red);" id="bloodTitle">সব সদস্য</div>
+        <div class="list-container" id="bloodFilteredList"></div>
+    </div>
+
+    <!-- Overlays -->
+    <div id="profileOverlay" class="overlay">
+        <div class="neumorphic-card" id="cardContent"></div>
+    </div>
+
+    <div id="devOverlay" class="overlay">
+     <div class="neumorphic-card">
+    <div class="profile-img-box">
+        <img src="https://raw.githubusercontent.com/easinahnaf9/Easin/main/easin.png">
+    </div>
+    <div class="user-name">মো: ইয়াসিন আহনাফ</div>
+    <div class="user-father">Web Developer & Designer</div>
+    
+    <div class="social-row">
+        <!-- ফেসবুক অ্যাপ ওপেন হবে -->
+        <a href="https://facebook.com/easinahnaf9" target="_blank" class="social-btn">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        
+                   <!-- হোয়াটসঅ্যাপ লিঙ্ক (আপনার নাম্বার অনুযায়ী) -->
+            <a href="https://wa.me/8801731866973" target="_blank" class="social-btn">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        
+        <!-- টেলিগ্রাম অ্যাপ ওপেন হবে -->
+        <a href="https://t.me/easinahnaf9" target="_blank" class="social-btn">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+    </div>
+   
+            <div class="btn" style="width: 100%; margin-top: 20px;" onclick="closeDev()">ফিরে যান</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-home"></i></div>
+        <div class="nav-item" onclick="showTab('search', this)"><i class="fas fa-search"></i></div>
+        <div class="nav-item" onclick="showTab('blood', this)"><i class="fas fa-tint"></i></div>
+    </div>
+</div>
+
+<script>
+    // আপনার ৩০ জন মেম্বার লিস্ট
+    const members = [
+        { id:1, name:"মো: ইয়াসিন আহনাফ ", father:"মো: আব্দুল কাদের ", blood:"O+", phone:"01731866973", img:"https://raw.githubusercontent.com/easinahnaf9/Easin/main/easin.png", fb:"https://www.facebook.com/muhammad.abdulahad.942", msg:"https://m.me/muhammad.abdulahad.942", wa:"https://wa.me/8801731866973", tg:"https://t.me/easinahnaf" },
+        { id:2, name:"শাহরিয়ার হোসাইন রাকিব", father:"রবিউল ইসলাম ", blood:"O+", phone:"01822000000", img:"https://raw.githubusercontent.com/easinahnaf9/Easin/main/rakib.JPG", fb:"#", msg:"#", wa:"https://wa.me/8801822000000", tg:"#" },
+        { id:3, name:"তানজিল আহমেদ", father:"মো: খলিলুর রহমান", blood:"B+", phone:"01933000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801933000000", tg:"#" },
+        { id:4, name:"সাদিয়া ইসলাম", father:"রফিকুল ইসলাম", blood:"AB+", phone:"01544000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801544000000", tg:"#" },
+        { id:5, name:"ফয়সাল আহমেদ", father:"মৃত আজাহার আলী", blood:"O-", phone:"01655000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801655000000", tg:"#" },
+        { id:6, name:"রাইসা আক্তার", father:"মো: শামসুল হক", blood:"A+", phone:"01366000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801366000000", tg:"#" },
+        { id:7, name:"ইশতিয়াক হোসেন", father:"আনোয়ার হোসেন", blood:"B+", phone:"01777000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801777000000", tg:"#" },
+        { id:8, name:"মেহজাবিন চৌধুরী", father:"আসাদ চৌধুরী", blood:"O+", phone:"01888000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801888000000", tg:"#" },
+        { id:9, name:"সাব্বির হাসান", father:"মো: নজরুল ইসলাম", blood:"AB-", phone:"01999000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801999000000", tg:"#" },
+        { id:10, name:"জান্নাতুল ফেরদৌস", father:"মো: মোস্তফা কামাল", blood:"A-", phone:"01511000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801511000000", tg:"#" },
+        { id:11, name:"আদনান সামি", father:"মো: শাহজাহান", blood:"B+", phone:"01622000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801622000000", tg:"#" },
+        { id:12, name:"সুমাইয়া আক্তার", father:"আব্দুল জলিল", blood:"O+", phone:"01333000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801333000000", tg:"#" },
+        { id:13, name:"রাকিবুল হাসান", father:"মো: ইদ্রিস আলী", blood:"A+", phone:"01744000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801744000000", tg:"#" },
+        { id:14, name:"ফারিয়া রহমান", father:"মো: হাবিবুর রহমান", blood:"B-", phone:"01855000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801855000000", tg:"#" },
+        { id:15, name:"তৌফিকুল ইসলাম", father:"মো: জহিরুল ইসলাম", blood:"AB+", phone:"01966000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801966000000", tg:"#" },
+        { id:16, name:"লাবিবা সুলতানা", father:"মো: শাহিন আলম", blood:"O+", phone:"01577000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801577000000", tg:"#" },
+        { id:17, name:"আরমান হোসেন", father:"মো: মোশাররফ হোসেন", blood:"A+", phone:"01688000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801688000000", tg:"#" },
+        { id:18, name:"নওরীন আক্তার", father:"আব্দুল খালেক", blood:"B+", phone:"01399000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801399000000", tg:"#" },
+        { id:19, name:"সাকিব আল হাসান", father:"মো: মাশরাফি বিন মর্তুজা", blood:"O+", phone:"01712000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801712000000", tg:"#" },
+        { id:20, name:"ইশরাত জাহান", father:"মো: রফিক আহমেদ", blood:"AB+", phone:"01823000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801823000000", tg:"#" },
+        { id:21, name:"মো: জুবায়ের", father:"মো: ইউনুস আলী", blood:"A+", phone:"01934000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801934000000", tg:"#" },
+        { id:22, name:"আফরোজা বেগম", father:"আব্দুল মালেক", blood:"O-", phone:"01545000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801545000000", tg:"#" },
+        { id:23, name:"কামরুল হাসান", father:"মো: গিয়াস উদ্দিন", blood:"B+", phone:"01656000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801656000000", tg:"#" },
+        { id:24, name:"তানিয়া সুলতানা", father:"মো: আলমগীর হোসেন", blood:"A-", phone:"01367000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801367000000", tg:"#" },
+        { id:25, name:"সাইফ উদ্দিন", father:"মো: সিরাজুল ইসলাম", blood:"O+", phone:"01778000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801778000000", tg:"#" },
+        { id:26, name:"মারিয়া বিনতে মোস্তফা", father:"মো: মোস্তফা পাটোয়ারী", blood:"AB+", phone:"01889000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801889000000", tg:"#" },
+        { id:27, name:"হিমেল আহমেদ", father:"মো: শফিউল আলম", blood:"B+", phone:"01910000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801910000000", tg:"#" },
+        { id:28, name:"ফাতেমা তুজ জোহরা", father:"মো: ইব্রাহিম খলিল", blood:"A+", phone:"01521000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801521000000", tg:"#" },
+        { id:29, name:"শামীম ওসমান", father:"মো: ওসমান গণি", blood:"O+", phone:"01632000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801632000000", tg:"#" },
+        { id:30, name:"তাসলিমা আক্তার", father:"মো: সাখাওয়াত হোসেন", blood:"B-", phone:"01343000000", img:"https://via.placeholder.com/150", fb:"#", msg:"#", wa:"https://wa.me/8801343000000", tg:"#" }
+    ];
+
+    function renderList(data, targetId) {
+        const target = document.getElementById(targetId);
+        target.innerHTML = '';
+        data.forEach(m => {
+            const div = document.createElement('div');
+            div.className = 'list-item';
+            div.onclick = () => openProfile(m);
+            div.innerHTML = `
+                <img src="${m.img}">
+                <div class="info">
+                    <div class="name">${m.name}</div>
+                    <div style="color:var(--blood-red); font-weight:bold; font-size:13px;">${m.blood} Group</div>
+                </div>
+            `;
+            target.appendChild(div);
+        });
+    }
+
+    function openProfile(m) {
+        const card = document.getElementById('cardContent');
+        card.innerHTML = `
+            <div class="profile-img-box"><img src="${m.img}"></div>
+            <div class="user-name">${m.name}</div>
+            <div class="user-father">পিতা: ${m.father}</div>
+            
+            <div class="social-row">
+                <a href="tel:${m.phone}" class="social-btn"><i class="fas fa-phone"></i></a>
+                <a href="${m.fb}" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                <a href="${m.wa}" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                <a href="${m.tg}" target="_blank" class="social-btn"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+
+            <div class="action-btns">
+                <a href="sms:${m.phone}" target="_blank" class="btn">Message</a>
+                <a href="tel:${m.phone}" class="btn">Call Now</a>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-item"><i class="fas fa-tint"></i> <span>${m.blood}</span></div>
+                <div class="stat-item"><i class="fas fa-map-marker-alt"></i> <span>শেরখালী</span></div>
+                <div class="stat-item"><i class="fas fa-check-circle"></i> <span>Active</span></div>
+            </div>
+            <p style="margin-top:25px; font-size:11px; color:#aaa;">(ফিরে যেতে ফোনের ব্যাক বাটন চাপুন)</p>
+        `;
+        document.getElementById('profileOverlay').style.display = 'flex';
+        window.history.pushState({view: 'profile'}, '');
+    }
+
+    function renderBloodStats() {
+        const groups = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
+        const grid = document.getElementById('bloodSummary');
+        grid.innerHTML = '';
+        groups.forEach(g => {
+            const count = members.filter(m => m.blood === g).length;
+            const card = document.createElement('div');
+            card.className = 'blood-card';
+            card.onclick = () => {
+                const filtered = members.filter(m => m.blood === g);
+                document.getElementById('bloodTitle').innerText = g + " গ্রুপের তালিকা (" + count + " জন)";
+                renderList(filtered, 'bloodFilteredList');
+            };
+            card.innerHTML = `<h3>${g}</h3><p>${count} জন</p>`;
+            grid.appendChild(card);
+        });
+        renderList(members, 'bloodFilteredList');
+    }
+
+    function toggleMenu() { document.getElementById('sideNav').classList.toggle('active'); }
+    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); toggleMenu(); }
+    function showDeveloper() { document.getElementById('devOverlay').style.display = 'flex'; toggleMenu(); window.history.pushState({view: 'dev'}, '');}
+    function closeDev() { document.getElementById('devOverlay').style.display = 'none'; }
+    function showTab(id, el) { 
+        document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
+        document.getElementById(id).classList.add('active-section');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+        if(id === 'blood') renderBloodStats();
+    }
+
+    window.onpopstate = () => { 
+        document.querySelectorAll('.overlay').forEach(o => o.style.display = 'none'); 
+    };
+
+    function runSearch() {
+        const val = document.getElementById('searchInput').value.toLowerCase();
+        renderList(members.filter(m => m.name.toLowerCase().includes(val)), 'searchList');
+    }
+
+    renderList(members, 'mainList');
+</script>
+
+</body>
+</html>
