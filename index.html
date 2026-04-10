@@ -3,313 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>শেরখালী যুবশক্তি </title>
+    <title>শেরখালী যুবশক্তি</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root {
-            --bg-color: #ecf0f3;
-            --shadow-dark: #d1d9e6;
-            --shadow-light: #ffffff;
-            --accent-color: #31344b;
-            --text-gray: #777;
-            --blood-red: #e74c3c;
-        }
+        :root { --bg-color: #ecf0f3; --shadow-dark: #d1d9e6; --shadow-light: #ffffff; --accent-color: #31344b; --blood-red: #e74c3c; }
+        .dark-mode { --bg-color: #2d3436; --shadow-dark: #1e2425; --shadow-light: #3c4446; --accent-color: #ecf0f3; }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-color); color: var(--accent-color); transition: 0.3s; overflow-x: hidden; }
 
-        .dark-mode {
-            --bg-color: #2d3436;
-            --shadow-dark: #1e2425;
-            --shadow-light: #3c4446;
-            --accent-color: #ecf0f3;
-            --text-gray: #bdc3c7;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-            font-family: 'Hind Siliguri', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--accent-color);
-            transition: 0.3s;
-            display: flex; justify-content: center; min-height: 100vh;
-        }
-
-        .phone-container { width: 100%; max-width: 450px; position: relative; padding-bottom: 90px; overflow-x: hidden; }
-
-        /* Top Bar */
-        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 30px 20px 10px; }
-        .top-bar h1 { font-size: 24px; font-weight: 700; flex-grow: 1; text-align: center; margin-left: 40px;}
-        .menu-dot {
-            width: 45px; height: 45px; border-radius: 50%; background: var(--bg-color);
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
-            cursor: pointer; font-size: 20px;
-        }
+        /* Header */
+        header { position: fixed; top: 0; width: 100%; height: 70px; background: var(--bg-color); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 1000; box-shadow: 5px 5px 10px var(--shadow-dark); }
+        header h1 { font-size: 22px; font-weight: 700; flex: 1; text-align: left; }
+        .icon-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--bg-color); cursor: pointer; color: var(--accent-color); }
 
         /* Side Nav */
-        .side-nav {
-            position: fixed; top: 0; right: -280px; width: 280px; height: 100%;
-            background: var(--bg-color); z-index: 3000; padding: 50px 20px;
-            box-shadow: -10px 0 30px var(--shadow-dark); transition: 0.4s ease;
-        }
+        .side-nav { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: var(--bg-color); z-index: 6000; padding: 50px 20px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: 0.4s; }
         .side-nav.active { right: 0; }
-        .side-nav .menu-item {
-            padding: 15px; margin-bottom: 20px; border-radius: 12px;
-            display: flex; align-items: center; gap: 15px;
-            box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
-            cursor: pointer; font-weight: 600;
-        }
+        .menu-item { padding: 15px; margin-bottom: 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px; box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light); cursor: pointer; font-weight: 600; }
 
-        /* Member List Neumorphic Items */
-        .list-container { padding: 15px; }
-        .list-item {
-            background: var(--bg-color); padding: 15px; border-radius: 20px;
-            margin-bottom: 20px; display: flex; align-items: center;
-            box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
-            cursor: pointer; transition: 0.2s;
-        }
-        .list-item:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
-        .list-item img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; box-shadow: 3px 3px 6px var(--shadow-dark); }
-        .list-item .info { flex-grow: 1; margin-left: 15px; }
-        .list-item .name { font-size: 17px; font-weight: 600; }
+        /* Fixed Search Area */
+        .search-container { position: fixed; top: 70px; width: 100%; padding: 15px; background: var(--bg-color); z-index: 900; }
+        .search-box { width: 100%; padding: 15px 25px; border: none; border-radius: 30px; background: var(--bg-color); box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light); outline: none; font-size: 16px; color: var(--accent-color); }
 
-        /* Overlays (Profile & Dev) */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-color); z-index: 4000; display: none;
-            align-items: center; justify-content: center;
-        }
-
-        /* বড় এবং লম্বা কার্ড ডিজাইন (এখানে পরিবর্তন করা হয়েছে) */
-        .neumorphic-card {
-            width: 92%; max-width: 360px; /* চওড়া বাড়ানো হয়েছে */
-            background: var(--bg-color);
-            padding: 50px 25px 40px; /* লম্বা করার জন্য প্যাডিং বাড়ানো হয়েছে */
-            border-radius: 50px;
-            box-shadow: 15px 15px 35px var(--shadow-dark), -15px -15px 35px var(--shadow-light);
-            text-align: center;
-        }
-
-        /* বড় প্রোফাইল ইমেজ */
-        .profile-img-box {
-            width: 150px; height: 150px; /* সাইজ বাড়ানো হয়েছে */
-            margin: 0 auto 25px; border-radius: 50%; padding: 10px;
-            box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .profile-img-box img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; }
-
-        .user-name { font-size: 26px; color: var(--accent-color); font-weight: 700; margin-bottom: 8px; }
-        .user-father { font-size: 16px; color: var(--text-gray); margin-bottom: 35px; }
-
-        /* বড় সোশ্যাল বাটন */
-        .social-row { display: flex; justify-content: center; gap: 18px; margin-bottom: 35px; }
-        .social-btn {
-            width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            background: var(--bg-color); color: var(--accent-color);
-            box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
-            font-size: 20px; text-decoration: none;
-        }
-
-        /* বড় অ্যাকশন বাটন */
-        .action-btns { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
-        .btn {
-            width: 135px; padding: 14px; border-radius: 15px; border: none;
-            background: var(--bg-color); color: var(--accent-color); font-weight: 600;
-            box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
-            text-decoration: none; font-size: 15px; text-align: center;
-        }
-        .btn:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
-
-        /* স্ট্যাটাস লাইন */
-        .stats-row { 
-            display: flex; justify-content: space-around; 
-            border-top: 1px solid rgba(0,0,0,0.05); padding-top: 25px; 
-            margin-top: 10px;
-        }
-        .stat-item i { display: block; font-size: 18px; color: var(--text-gray); margin-bottom: 8px; }
-        .stat-item span { display: block; font-weight: bold; font-size: 15px; }
-
-        /* Search Box */
-        .search-box {
-            width: 90%; margin: 10px auto 20px; display: block;
-            padding: 16px 20px; border: none; border-radius: 30px;
-            background: var(--bg-color); color: var(--accent-color);
-            box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
-            outline: none; font-family: 'Hind Siliguri'; font-size: 16px;
-        }
-
-        /* Blood Summary Card */
-        .blood-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
-        .blood-card {
-            background: var(--bg-color); padding: 22px; border-radius: 22px;
-            text-align: center; cursor: pointer;
-            box-shadow: 7px 7px 14px var(--shadow-dark), -7px -7px 14px var(--shadow-light);
-            transition: 0.2s;
-        }
-        .blood-card h3 { color: var(--blood-red); font-size: 24px; margin-bottom: 5px; }
-
-        /* Bottom Nav */
-        .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; max-width: 450px;
-            background: var(--bg-color); display: flex; justify-content: space-around;
-            padding: 18px 0; border-radius: 30px 30px 0 0;
-            box-shadow: 0 -10px 20px var(--shadow-dark); z-index: 1000;
-        }
-        .nav-item { color: #888; font-size: 22px; cursor: pointer; }
-        .nav-item.active { color: var(--accent-color); }
+        /* Main Content */
+        main { padding: 155px 15px 100px; min-height: 100vh; }
         .page-section { display: none; }
         .active-section { display: block; }
-/* প্রোফাইলের ভেতরের ব্লাড আইকন লাল করার জন্য */
-.stat-item i.fa-tint {
-    color: #e74c3c !important;
-}
+
+        /* Footer */
+        footer { position: fixed; bottom: 0; width: 100%; height: 75px; background: var(--bg-color); display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -5px 20px var(--shadow-dark); z-index: 1000; border-radius: 30px 30px 0 0; }
+        .nav-item { text-align: center; color: #888; cursor: pointer; flex: 1; transition: 0.3s; }
+        .nav-item.active { color: var(--accent-color); }
+        .nav-item i { font-size: 24px; }
+
+        /* List UI */
+        .list-item { background: var(--bg-color); padding: 15px; border-radius: 20px; margin-bottom: 18px; display: flex; align-items: center; box-shadow: 7px 7px 14px var(--shadow-dark), -7px -7px 14px var(--shadow-light); cursor: pointer; }
+        .list-item img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; box-shadow: 3px 3px 6px var(--shadow-dark); }
+        .list-item .info { flex: 1; margin-left: 15px; }
+        .list-item .name { font-weight: 700; font-size: 18px; }
+
+        /* Blood Grid */
+        .blood-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+        .blood-card { background: var(--bg-color); padding: 25px; border-radius: 25px; text-align: center; box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); cursor: pointer; }
+        .blood-card h3 { color: var(--blood-red); font-size: 26px; }
+
+        /* Overlay Styling */
+        .full-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); display: none; overflow-y: auto; padding: 40px 20px; }
+        #profileOverlay { z-index: 5500; } /* প্রোফাইল সবার উপরে থাকবে */
+        #bloodOverlay { z-index: 5000; }
+        #devOverlay { z-index: 5800; }
+
+        .neumorphic-card { background: var(--bg-color); border-radius: 50px; padding: 40px 20px; box-shadow: 20px 20px 40px var(--shadow-dark), -20px -20px 40px var(--shadow-light); text-align: center; max-width: 380px; margin: 20px auto; }
+        
+        .profile-img-box { width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 30px; padding: 10px; background: var(--bg-color); box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); display: flex; align-items: center; justify-content: center; }
+        .profile-img-box img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; }
+        
+        .user-name { font-size: 28px; font-weight: 800; color: #31344b; margin-bottom: 5px; }
+        .user-father { color: #777; font-size: 16px; margin-bottom: 30px; }
+        
+        .social-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; }
+        .social-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--bg-color); box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light); color: var(--accent-color); text-decoration: none; font-size: 20px; }
+        
+        .action-btns { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        .btn-n { flex: 1; padding: 16px; border-radius: 18px; border: none; background: var(--bg-color); color: var(--accent-color); font-weight: 700; box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light); cursor: pointer; text-decoration: none; font-size: 15px; text-align: center; }
+
+        .stats-row { display: flex; justify-content: space-around; padding-top: 25px; border-top: 1px solid rgba(0,0,0,0.05); }
+        .stat-item { text-align: center; }
+        .stat-item i { display: block; font-size: 20px; margin-bottom: 8px; color: #777; }
+        .stat-item span { font-weight: 700; font-size: 14px; }
+        .stat-item .blood-icon { color: var(--blood-red); }
+
+        .form-card { background: var(--bg-color); padding: 25px; border-radius: 30px; box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light); }
+        .input-f { width: 100%; padding: 15px 20px; border: none; border-radius: 20px; background: var(--bg-color); box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); outline: none; margin-bottom: 15px; font-size: 15px; color: var(--accent-color); }
     </style>
 </head>
 <body>
 
-<div class="phone-container">
-    <div class="top-bar">
-        <h1>শেরখালী যুব শক্তি </h1>
-        <div class="menu-dot" onclick="toggleMenu()"><i class="fas fa-ellipsis-v"></i></div>
-    </div>
+<header>
+    <h1>শেরখালী যুবশক্তি</h1>
+    <div class="icon-btn" id="menuBtn"><i class="fas fa-ellipsis-v"></i></div>
+</header>
 
-    <!-- Side Navigation -->
-    <div id="sideNav" class="side-nav">
-        <div class="menu-item" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> ডার্ক মোড</div>
-        <div class="menu-item" onclick="showDeveloper()"><i class="fas fa-code"></i> ডেভলপার</div>
-        <div class="menu-item" onclick="toggleMenu()"><i class="fas fa-times"></i> বন্ধ করুন</div>
-    </div>
-
-    <!-- Main Sections -->
-    <div id="home" class="page-section active-section">
-        <div class="list-container" id="mainList"></div>
-    </div>
-
-    <div id="search" class="page-section">
-        <input type="text" id="searchInput" class="search-box" placeholder="নাম লিখে খুঁজুন..." onkeyup="runSearch()">
-        <div class="list-container" id="searchList"></div>
-    </div>
-
-    <div id="blood" class="page-section">
-        <div class="blood-grid" id="bloodSummary"></div>
-        <div style="margin: 20px 15px 10px; font-weight: bold; color: var(--blood-red);" id="bloodTitle">সব সদস্য</div>
-        <div class="list-container" id="bloodFilteredList"></div>
-    </div>
-
-    <!-- Overlays -->
-    <div id="profileOverlay" class="overlay">
-        <div class="neumorphic-card" id="cardContent"></div>
-    </div>
-
-    <div id="devOverlay" class="overlay">
-     <div class="neumorphic-card">
-    <div class="profile-img-box">
-        <img src="https://raw.githubusercontent.com/easinahnaf9/Easin/main/easin.png">
-    </div>
-    <div class="user-name">মো: ইয়াসিন আহনাফ</div>
-    <div class="user-father">Web Developer & Designer</div>
-    
-    <div class="social-row">
-        <!-- ফেসবুক অ্যাপ ওপেন হবে -->
-        <a href="https://facebook.com/easinahnaf9" target="_blank" class="social-btn">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        
-                   <!-- হোয়াটসঅ্যাপ লিঙ্ক (আপনার নাম্বার অনুযায়ী) -->
-            <a href="https://wa.me/8801731866973" target="_blank" class="social-btn">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        
-        <!-- টেলিগ্রাম অ্যাপ ওপেন হবে -->
-        <a href="https://t.me/easinahnaf9" target="_blank" class="social-btn">
-            <i class="fab fa-telegram-plane"></i>
-        </a>
-    </div>
-   
-            <div class="btn" style="width: 100%; margin-top: 20px;" onclick="closeDev()">ফিরে যান</div>
-        </div>
-    </div>
-
-    <!-- Navbar -->
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-home"></i></div>
-        <div class="nav-item" onclick="showTab('search', this)"><i class="fas fa-search"></i></div>
-        <div class="nav-item" onclick="showTab('blood', this)"><i class="fas fa-tint"></i></div>
-    </div>
+<div id="sideNav" class="side-nav">
+    <div class="menu-item" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> ডার্ক মোড</div>
+    <div class="menu-item" onclick="showDev()"><i class="fas fa-code"></i> ডেভেলপার</div>
+    <div class="menu-item" onclick="closeMenu()"><i class="fas fa-times"></i> বন্ধ করুন</div>
 </div>
 
+<div class="search-container" id="searchArea">
+    <input type="text" id="searchInput" class="search-box" placeholder="নাম অথবা ফোন দিয়ে খুঁজুন...">
+</div>
+
+<main>
+    <div id="homeSec" class="page-section active-section">
+        <div id="loader" style="text-align: center; padding: 40px;">ডাটা লোড হচ্ছে...</div>
+        <div id="mainList"></div>
+    </div>
+
+    <div id="bloodSec" class="page-section">
+        <div class="blood-grid" id="bloodSummary"></div>
+    </div>
+
+    <div id="addSec" class="page-section">
+        <div class="form-card">
+            <h2 style="text-align:center; margin-bottom:20px;">নতুন সদস্য</h2>
+            <div style="text-align:center; margin-bottom:20px;">
+                <div class="profile-img-box" style="width:110px; height:110px; cursor:pointer;" onclick="document.getElementById('imgInput').click()">
+                    <img id="previewImg" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+                </div>
+                <input type="file" id="imgInput" hidden accept="image/*">
+            </div>
+            <input type="text" id="m_name" class="input-f" placeholder="নাম">
+            <input type="text" id="m_father" class="input-f" placeholder="পিতার নাম">
+            <select id="m_blood" class="input-f">
+                <option value="-">রক্তের গ্রুপ</option>
+                <option value="A+">A+</option><option value="A-">A-</option>
+                <option value="B+">B+</option><option value="B-">B-</option>
+                <option value="O+">O+</option><option value="O-">O-</option>
+                <option value="AB+">AB+</option><option value="AB-">AB-</option>
+            </select>
+            <input type="number" id="m_phone" class="input-f" placeholder="ফোন নম্বর">
+            <input type="text" id="m_fb" class="input-f" placeholder="ফেসবুক লিঙ্ক">
+            <button id="saveBtn" class="btn-n" style="width:100%; background:var(--blood-red); color:white;">সেভ করুন</button>
+        </div>
+    </div>
+</main>
+
+<!-- Overlays -->
+<div id="profileOverlay" class="full-overlay"></div>
+<div id="bloodOverlay" class="full-overlay">
+    <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
+        <div class="icon-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i></div>
+        <h2 id="bTitle">তালিকা</h2>
+    </div>
+    <div id="bloodList"></div>
+</div>
+<div id="devOverlay" class="full-overlay"></div>
+
+<footer>
+    <div class="nav-item active" onclick="navTo('homeSec', this)"><i class="fas fa-home"></i></div>
+    <div class="nav-item" onclick="navTo('addSec', this)"><i class="fas fa-plus-circle"></i></div>
+    <div class="nav-item" onclick="navTo('bloodSec', this)"><i class="fas fa-tint"></i></div>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC8Ppk7UKPGfGw4I6n00I8e79xkb4_lHcA",
+        authDomain: "sherkhali.firebaseapp.com",
+        projectId: "sherkhali",
+        storageBucket: "sherkhali.firebasestorage.app",
+        messagingSenderId: "1016738622293",
+        appId: "1:1016738622293:web:b01e8f705aacc4dbc05ddc"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const IMGBB_KEY = "7a5eacf017aadcfeb81ef6f990a570a6";
+
+    window.allMembers = [];
+
+    onSnapshot(query(collection(db, "members"), orderBy("name", "asc")), (snap) => {
+        window.allMembers = snap.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        renderList(window.allMembers, 'mainList');
+        document.getElementById('loader').style.display = 'none';
+    });
+
+    document.getElementById('saveBtn').onclick = async () => {
+        const file = document.getElementById('imgInput').files[0];
+        const name = document.getElementById('m_name').value;
+        const phone = document.getElementById('m_phone').value;
+        const btn = document.getElementById('saveBtn');
+
+        if(!name || !phone) return alert("নাম এবং নম্বর দিন!");
+        btn.disabled = true; btn.innerText = "আপলোড হচ্ছে...";
+
+        try {
+            let imgUrl = "";
+            if(file) {
+                let fd = new FormData(); fd.append("image", file);
+                let res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`, {method:"POST", body:fd});
+                let d = await res.json(); imgUrl = d.data.url;
+            }
+            await addDoc(collection(db, "members"), {
+                name, phone, img: imgUrl, 
+                father: document.getElementById('m_father').value,
+                blood: document.getElementById('m_blood').value,
+                fb: document.getElementById('m_fb').value || "#"
+            });
+            alert("সফল হয়েছে!"); location.reload();
+        } catch(e) { alert("ত্রুটি!"); btn.disabled = false; btn.innerText = "সেভ করুন"; }
+    };
+</script>
+
 <script>
-    // আপনার ৩০ জন মেম্বার লিস্ট
-    const members = [
-        { id:1, name:"মো: ইয়াসিন আহনাফ ", father:"মো: আব্দুল কাদের ", blood:"O+", phone:"01731866973", img:"https://raw.githubusercontent.com/easinahnaf9/Easin/main/easin.png", fb:"https://www.facebook.com/muhammad.abdulahad.942", msg:"https://m.me/muhammad.abdulahad.942", wa:"https://wa.me/8801731866973", tg:"https://t.me/easinahnaf" },
- { id:2, name:"আবির আবির", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/AbirAbir", msg:"https://m.me/AbirAbir", wa:"https://wa.me/", tg:"" },
-  { id:3, name:"আবু বকর সিদ্দিক", father:"-", blood:"-", phoe:"-", img:"", fb:"https://www.facebook.com/AbuBakorSiddik", msg:"https://m.me/AbuBakorSiddik", wa:"https://wa.me/", tg:"" },
-  { id:4, name:"আফ্রিদি হাসান রাকাত", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/AfridiHasanRakat", msg:"https://m.me/AfridiHasanRakat", wa:"https://wa.me/", tg:"" },
-  { id:5, name:"আরাফাত হুসাইন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ArafatHussain", msg:"https://m.me/ArafatHussain", wa:"https://wa.me/", tg:"" },
-  { id:6, name:"আরিয়ান খান রাসেল", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/AriyanKhanRasel", msg:"https://m.me/AriyanKhanRasel", wa:"https://wa.me/", tg:"" },
-  { id:7, name:"আসাদুল ইসলাম", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/AshadulIslam", msg:"https://m.me/AshadulIslam", wa:"https://wa.me/", tg:"" },
-  { id:8, name:"আশিক আশিক রহমান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/AshikAshikRohoman", msg:"https://m.me/AshikAshikRohoman", wa:"https://wa.me/", tg:"" },
-  { id:9, name:"আশিকুর রহমান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/AshikurRahman", msg:"https://m.me/AshikurRahman", wa:"https://wa.me/", tg:"" },
-  { id:10, name:"আর এস আশিক", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/RsAshik", msg:"https://m.me/RsAshik", wa:"https://wa.me/", tg:"" },
-  { id:11, name:"আর এস রকি", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/RSRoky1", msg:"https://m.me/RSRoky1", wa:"https://wa.me/", tg:"" },
-  { id:12, name:"আর এস রকি", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/RSRoky2", msg:"https://m.me/RSRoky2", wa:"https://wa.me/", tg:"" },
-  { id:13, name:"ইফতেখার মাহমুদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/IftekharMahmud", msg:"https://m.me/IftekharMahmud", wa:"https://wa.me/", tg:"" },
-  { id:14, name:"ইমরান খান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ImranKhan", msg:"https://m.me/ImranKhan", wa:"https://wa.me/", tg:"" },
-  { id:15, name:"ইয়ামিন ইয়ামিন হাসান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/YeaminYeaminHassan", msg:"https://m.me/YeaminYeaminHassan", wa:"https://wa.me/", tg:"" },
-  { id:16, name:"এস এম সজীব হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/SMSajibHossen", msg:"https://m.me/SMSajibHossen", wa:"https://wa.me/", tg:"" },
-  { id:17, name:"জিহাদ হাসান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ZihadHasan", msg:"https://m.me/ZihadHasan", wa:"https://wa.me/", tg:"" },
-  { id:18, name:"তৌহিদ হাসান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/TauhidHasan", msg:"https://m.me/TauhidHasan", wa:"https://wa.me/", tg:"" },
-  { id:19, name:"তৌহিদ হাসান শান্ত", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/TauhidHasanShanto", msg:"https://m.me/TauhidHasanShanto", wa:"https://wa.me/", tg:"" },
-  { id:20, name:"নাহিদ হাসান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/NahidHasan", msg:"https://m.me/NahidHasan", wa:"https://wa.me/", tg:"" },
-  { id:21, name:"নিশান আলী", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/NishanAli", msg:"https://m.me/NishanAli", wa:"https://wa.me/", tg:"" },
-  { id:22, name:"নাফিজ রহমান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/NafizRahman", msg:"https://m.me/NafizRahman", wa:"https://wa.me/", tg:"" },
-  { id:23, name:"নূর আলী", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/NurAli1", msg:"https://m.me/NurAli1", wa:"https://wa.me/", tg:"" },
-  { id:24, name:"নূর আলী", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/NurAli2", msg:"https://m.me/NurAli2", wa:"https://wa.me/", tg:"" },
-  { id:25, name:"পারভেজ আহমেদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ParvezAhmed", msg:"https://m.me/ParvezAhmed", wa:"https://wa.me/", tg:"" },
-  { id:26, name:"প্রিন্স বাবু", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/PrinceBabu", msg:"https://m.me/PrinceBabu", wa:"https://wa.me/", tg:"" },
-  { id:27, name:"প্রিন্স নীরব", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/PrinceNirob", msg:"https://m.me/PrinceNirob", wa:"https://wa.me/", tg:"" },
-  { id:28, name:"ফরহাদ আহমেদ ফরহাদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ForhadAhmedForhad", msg:"https://m.me/ForhadAhmedForhad", wa:"https://wa.me/", tg:"" },
-  { id:29, name:"ফেসবুক ইউজার", father:"-", blood:"-", phone:"-", img:"", fb:"", msg:"", wa:"", tg:"" },
-  { id:30, name:"মাসুম বিল্লাল", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MasumBillal", msg:"https://m.me/MasumBillal", wa:"https://wa.me/", tg:"" },
-  { id:31, name:"মিজানুর রহমান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MijanurRhaman", msg:"https://m.me/MijanurRhaman", wa:"https://wa.me/", tg:"" },
-  { id:32, name:"মুন্না রহমান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MunnaRahman", msg:"https://m.me/MunnaRahman", wa:"https://wa.me/", tg:"" },
-  { id:33, name:"মেহেদী হাসান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MehediHassan", msg:"https://m.me/MehediHassan", wa:"https://wa.me/", tg:"" },
-  { id:34, name:"মোহাম্মদ আরবিদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MohammadArbid", msg:"https://m.me/MohammadArbid", wa:"https://wa.me/", tg:"" },
-  { id:35, name:"মোঃ আজাহার আলভি", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MDAjaherAlvi", msg:"https://m.me/MDAjaherAlvi", wa:"https://wa.me/", tg:"" },
-  { id:36, name:"মোঃ ইমরান হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MDImranHossan", msg:"https://m.me/MDImranHossan", wa:"https://wa.me/", tg:"" },
-  { id:37, name:"মোঃ ইউনুস আলী", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdYounusAli", msg:"https://m.me/MdYounusAli", wa:"https://wa.me/", tg:"" },
-  { id:38, name:"মোঃ ইয়ামিন হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdYeaminHossen", msg:"https://m.me/MdYeaminHossen", wa:"https://wa.me/", tg:"" },
-  { id:39, name:"মোঃ ইয়াসিন আহনাফ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdEasinAhnaf", msg:"https://m.me/MdEasinAhnaf", wa:"https://wa.me/", tg:"" },
-  { id:40, name:"মোঃ তাজিম হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MDTajimHossain", msg:"https://m.me/MDTajimHossain", wa:"https://wa.me/", tg:"" },
-  { id:41, name:"মোঃ তানভীর আহমেদ স্বাধীন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdTanvirAhmedShadhin", msg:"https://m.me/MdTanvirAhmedShadhin", wa:"https://wa.me/", tg:"" },
-  { id:42, name:"মোঃ মাহফুজুর রহমান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdMahfujurRahman", msg:"https://m.me/MdMahfujurRahman", wa:"https://wa.me/", tg:"" },
-  { id:43, name:"মোঃ মিনারুল ইসলাম", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MDMinarulIslam", msg:"https://m.me/MDMinarulIslam", wa:"https://wa.me/", tg:"" },
-  { id:44, name:"মোঃ মামুন হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdMamunHossain", msg:"https://m.me/MdMamunHossain", wa:"https://wa.me/", tg:"" },
-  { id:45, name:"মোঃ মিরাজ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdMiraj", msg:"https://m.me/MdMiraj", wa:"https://wa.me/", tg:"" },
-  { id:46, name:"মোঃ শাহরিয়া", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdShaharia", msg:"https://m.me/MdShaharia", wa:"https://wa.me/", tg:"" },
-  { id:47, name:"মোঃ সুজন হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/MdSujonHossain", msg:"https://m.me/MdSujonHossain", wa:"https://wa.me/", tg:"" },
-  { id:48, name:"রাব্বি আহমেদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/RabbyAhamed", msg:"https://m.me/RabbyAhamed", wa:"https://wa.me/", tg:"" },
-  { id:49, name:"রকিব হাসান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/RakibHasan", msg:"https://m.me/RakibHasan", wa:"https://wa.me/", tg:"" },
-  { id:50, name:"রাসেল আহমেদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/RaselAhamed", msg:"https://m.me/RaselAhamed", wa:"https://wa.me/", tg:"" },
-  { id:51, name:"রনি আহমেদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/RonyAhmed", msg:"https://m.me/RonyAhmed", wa:"https://wa.me/", tg:"" },
-  { id:52, name:"শাফিন মাহমুদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ShafinMahamud", msg:"https://m.me/ShafinMahamud", wa:"https://wa.me/", tg:"" },
-  { id:53, name:"শাহরিয়া হোসেন রাকিব", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ShahariaHossainRakib", msg:"https://m.me/ShahariaHossainRakib", wa:"https://wa.me/", tg:"" },
-  { id:54, name:"শাহেদ হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ShahedHossain", msg:"https://m.me/ShahedHossain", wa:"https://wa.me/", tg:"" },
-  { id:55, name:"শাহীন রেজা", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ShahenReza", msg:"https://m.me/ShahenReza", wa:"https://wa.me/", tg:"" },
-  { id:56, name:"শাহীন রেজা স্বপ্ন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ShahinRezaSopno", msg:"https://m.me/ShahinRezaSopno", wa:"https://wa.me/", tg:"" },
-  { id:57, name:"শাকিল আহমেদ", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ShakilAhmed", msg:"https://m.me/ShakilAhmed", wa:"https://wa.me/", tg:"" },
-  { id:58, name:"শাওন হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ShaonHossain", msg:"https://m.me/ShaonHossain", wa:"https://wa.me/", tg:"" },
-  { id:59, name:"শিহাব উদ্দিন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/ShihabUddin", msg:"https://m.me/ShihabUddin", wa:"https://wa.me/", tg:"" },
-  { id:60, name:"সিফাত হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/SifatHossain", msg:"https://m.me/SifatHossain", wa:"https://wa.me/", tg:"" },
-  { id:61, name:"সজীব খান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/SajibKhan", msg:"https://m.me/SajibKhan", wa:"https://wa.me/", tg:"" },
-  { id:62, name:"সাক সোহেল", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/SakSohel", msg:"https://m.me/SakSohel", wa:"https://wa.me/", tg:"" },
-  { id:63, name:"সাইমুন হোসাইন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/SaimunHossain1", msg:"https://m.me/SaimunHossain1", wa:"https://wa.me/", tg:"" },
-  { id:64, name:"সাইমুন হোসাইন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/SaimunHossain2", msg:"https://m.me/SaimunHossain2", wa:"https://wa.me/", tg:"" },
-  { id:65, name:"সোহাগ হোসেন", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/SohagHossion", msg:"https://m.me/SohagHossion", wa:"https://wa.me/", tg:"" },
-  { id:66, name:"সোহানুর রহমান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/SohanurRahman", msg:"https://m.me/SohanurRahman", wa:"https://wa.me/", tg:"" },
-  { id:67, name:"হাফিজুর রহমান", father:"-", blood:"-", phone:"-", img:"", fb:"https://www.facebook.com/HafizurRahaman", msg:"https://m.me/HafizurRahaman", wa:"https://wa.me/", tg:"" }
-];
+    function navTo(id, el) {
+        document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
+        document.getElementById(id).classList.add('active-section');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('searchArea').style.display = (id === 'addSec') ? 'none' : 'block';
+        if(id === 'bloodSec') renderBloodGrid();
+        window.history.pushState({sec: id}, "");
+    }
+
     function renderList(data, targetId) {
         const target = document.getElementById(targetId);
         target.innerHTML = '';
@@ -317,88 +219,104 @@
             const div = document.createElement('div');
             div.className = 'list-item';
             div.onclick = () => openProfile(m);
-            div.innerHTML = `
-                <img src="${m.img}">
-                <div class="info">
-                    <div class="name">${m.name}</div>
-                    <div style="color:var(--blood-red); font-weight:bold; font-size:13px;">${m.blood} Group</div>
-                </div>
-            `;
+            const img = m.img || `https://ui-avatars.com/api/?name=${m.name}&background=random`;
+            div.innerHTML = `<img src="${img}"><div class="info"><div class="name">${m.name}</div><div style="font-size:13px; color:var(--blood-red); font-weight:700;">${m.blood} Group</div></div>`;
             target.appendChild(div);
         });
     }
 
     function openProfile(m) {
-        const card = document.getElementById('cardContent');
-        card.innerHTML = `
-            <div class="profile-img-box"><img src="${m.img}"></div>
-            <div class="user-name">${m.name}</div>
-            <div class="user-father">পিতা: ${m.father}</div>
-            
-            <div class="social-row">
-                <a href="tel:${m.phone}" class="social-btn"><i class="fas fa-phone"></i></a>
-                <a href="${m.fb}" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                <a href="${m.wa}" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
-                <a href="${m.tg}" target="_blank" class="social-btn"><i class="fab fa-telegram-plane"></i></a>
+        const overlay = document.getElementById('profileOverlay');
+        const img = m.img || `https://ui-avatars.com/api/?name=${m.name}&background=random`;
+        overlay.innerHTML = `
+            <div class="neumorphic-card">
+                <div class="profile-img-box"><img src="${img}"></div>
+                <div class="user-name">${m.name}</div>
+                <div class="user-father">পিতা: ${m.father}</div>
+                <div class="social-row">
+                    <a href="tel:${m.phone}" class="social-btn"><i class="fas fa-phone"></i></a>
+                    <a href="${m.fb}" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/88${m.phone}" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                    
+                </div>
+                <div class="action-btns">
+                    <a href="sms:${m.phone}" class="btn-n">Message</a>
+                    <a href="tel:${m.phone}" class="btn-n">Call Now</a>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-item"><i class="fas fa-tint blood-icon"></i><span>${m.blood}</span></div>
+                    <div class="stat-item"><i class="fas fa-map-marker-alt"></i><span>শেরখালী</span></div>
+                    <div class="stat-item"><i class="fas fa-check-circle"></i><span>Active</span></div>
+                </div>
+                <p style="margin-top:30px; font-size:12px; color:#aaa;">(ফিরে যেতে ফোনের ব্যাক বাটন চাপুন)</p>
             </div>
-
-            <div class="action-btns">
-                <a href="sms:${m.phone}" target="_blank" class="btn">Message</a>
-                <a href="tel:${m.phone}" class="btn">Call Now</a>
-            </div>
-
-            <div class="stats-row">
-                <div class="stat-item"><i class="fas fa-tint"></i> <span>${m.blood}</span></div>
-                <div class="stat-item"><i class="fas fa-map-marker-alt"></i> <span>শেরখালী</span></div>
-                <div class="stat-item"><i class="fas fa-check-circle"></i> <span>Active</span></div>
-            </div>
-            <p style="margin-top:25px; font-size:11px; color:#aaa;">(ফিরে যেতে ফোনের ব্যাক বাটন চাপুন)</p>
         `;
-        document.getElementById('profileOverlay').style.display = 'flex';
-        window.history.pushState({view: 'profile'}, '');
+        overlay.style.display = 'block';
+        window.history.pushState({view: 'profile'}, "");
     }
 
-    function renderBloodStats() {
+    function renderBloodGrid() {
         const groups = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
         const grid = document.getElementById('bloodSummary');
         grid.innerHTML = '';
         groups.forEach(g => {
-            const count = members.filter(m => m.blood === g).length;
-            const card = document.createElement('div');
-            card.className = 'blood-card';
-            card.onclick = () => {
-                const filtered = members.filter(m => m.blood === g);
-                document.getElementById('bloodTitle').innerText = g + " গ্রুপের তালিকা (" + count + " জন)";
-                renderList(filtered, 'bloodFilteredList');
+            const count = window.allMembers.filter(m => m.blood === g).length;
+            const div = document.createElement('div');
+            div.className = 'blood-card';
+            div.onclick = () => {
+                document.getElementById('bTitle').innerText = g + " গ্রুপ ("+count+")";
+                renderList(window.allMembers.filter(m => m.blood === g), 'bloodList');
+                document.getElementById('bloodOverlay').style.display = 'block';
+                window.history.pushState({view: 'bloodDetails'}, "");
             };
-            card.innerHTML = `<h3>${g}</h3><p>${count} জন</p>`;
-            grid.appendChild(card);
+            div.innerHTML = `<h3>${g}</h3><p>${count} জন দাতা</p>`;
+            grid.appendChild(div);
         });
-        renderList(members, 'bloodFilteredList');
     }
 
-    function toggleMenu() { document.getElementById('sideNav').classList.toggle('active'); }
-    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); toggleMenu(); }
-    function showDeveloper() { document.getElementById('devOverlay').style.display = 'flex'; toggleMenu(); window.history.pushState({view: 'dev'}, '');}
-    function closeDev() { document.getElementById('devOverlay').style.display = 'none'; }
-    function showTab(id, el) { 
-        document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
-        document.getElementById(id).classList.add('active-section');
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        el.classList.add('active');
-        if(id === 'blood') renderBloodStats();
+    document.getElementById('menuBtn').onclick = () => document.getElementById('sideNav').classList.add('active');
+    function closeMenu() { document.getElementById('sideNav').classList.remove('active'); }
+    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); closeMenu(); }
+    
+    function showDev() {
+        const dev = document.getElementById('devOverlay');
+        dev.innerHTML = `<div class="neumorphic-card">
+            <div class="profile-img-box"><img src="https://raw.githubusercontent.com/easinahnaf9/Easin/main/easin.png"></div>
+            <div class="user-name">মো: ইয়াসিন আহনাফ</div>
+            <p class="user-father">Web Developer</p>
+            <div class="social-row"><a href="https://facebook.com/easinahnaf9" class="social-btn"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/8801731866973" class="social-btn"><i class="fab fa-whatsapp"></i></a></div>
+            <button onclick="window.history.back()" class="btn-n" style="width:100%; margin-top:20px;">ফিরে যান</button>
+        </div>`;
+        dev.style.display = 'block'; closeMenu(); window.history.pushState({view:'dev'},"");
     }
 
-    window.onpopstate = () => { 
-        document.querySelectorAll('.overlay').forEach(o => o.style.display = 'none'); 
+    document.getElementById('searchInput').onkeyup = function() {
+        const term = this.value.toLowerCase();
+        renderList(window.allMembers.filter(m => m.name.toLowerCase().includes(term) || m.phone.includes(term)), 'mainList');
     };
 
-    function runSearch() {
-        const val = document.getElementById('searchInput').value.toLowerCase();
-        renderList(members.filter(m => m.name.toLowerCase().includes(val)), 'searchList');
-    }
+    document.getElementById('imgInput').onchange = (e) => {
+        if(e.target.files[0]) document.getElementById('previewImg').src = URL.createObjectURL(e.target.files[0]);
+    };
 
-    renderList(members, 'mainList');
+    // ব্যাক বাটন লজিক - লেয়ার অনুযায়ী বন্ধ হবে
+    window.onpopstate = (e) => {
+        const profile = document.getElementById('profileOverlay');
+        const blood = document.getElementById('bloodOverlay');
+        const dev = document.getElementById('devOverlay');
+
+        if (profile.style.display === 'block') {
+            profile.style.display = 'none';
+        } else if (blood.style.display === 'block') {
+            blood.style.display = 'none';
+        } else if (dev.style.display === 'block') {
+            dev.style.display = 'none';
+        } else if (e.state && e.state.sec) {
+            navTo(e.state.sec, document.querySelector(`[onclick*="${e.state.sec}"]`));
+        } else {
+            navTo('homeSec', document.querySelector('[onclick*="homeSec"]'));
+        }
+    };
 </script>
 
 </body>
